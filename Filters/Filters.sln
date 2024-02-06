@@ -5,6 +5,8 @@ VisualStudioVersion = 17.4.33403.182
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Filters", "Filters\Filters.csproj", "{3AE7BF7D-4158-4B25-A376-A392D04A2C34}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Filters-Middleware", "Filters-Middleware\Filters-Middleware.csproj", "{64902C50-4607-4FBA-A2CD-4532EAED7CEE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{3AE7BF7D-4158-4B25-A376-A392D04A2C34}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3AE7BF7D-4158-4B25-A376-A392D04A2C34}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3AE7BF7D-4158-4B25-A376-A392D04A2C34}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64902C50-4607-4FBA-A2CD-4532EAED7CEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64902C50-4607-4FBA-A2CD-4532EAED7CEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64902C50-4607-4FBA-A2CD-4532EAED7CEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64902C50-4607-4FBA-A2CD-4532EAED7CEE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
