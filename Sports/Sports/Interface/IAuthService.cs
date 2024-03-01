@@ -1,4 +1,5 @@
-﻿using Sports.Model;
+﻿using Microsoft.AspNetCore.Mvc;
+using Sports.Model;
 
 namespace Sports.Interface
 {
@@ -6,5 +7,6 @@ namespace Sports.Interface
     {
         Task<string> Register(RegisterModel registerModel);
         Task<string> Login(LoginModel loginModel);
+       
     }
 }

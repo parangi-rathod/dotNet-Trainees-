@@ -21,16 +21,13 @@ namespace Sports.Model
         public string Firstname { get; set; }
         [Required]
         public string Lastname { get; set; }
-        [Required]
-        [MinLength(8), MaxLength(14)]
-        public string Password{ get; set; }
+        //[Required]
+        //[MinLength(8), MaxLength(14)]
+        //public string Password{ get; set; }
         [JsonIgnore]
-        [Column("PasswordHash")]
-        public byte[] PasswordHash { get; set; }
+        [Column("Password")]
+        public byte[] Password { get; set; }
 
-        [JsonIgnore]
-        [Column("PasswordSalt")]
-        public byte[] PasswordSalt { get; set; }
         public string? TotalMatchesPlayed { get; set; }
         [Required]
         [Phone]

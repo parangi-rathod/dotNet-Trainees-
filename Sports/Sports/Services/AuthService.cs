@@ -1,5 +1,10 @@
-﻿using Sports.Interface;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Sports.Interface;
 using Sports.Model;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 namespace Sports.Services
 {
@@ -7,6 +12,7 @@ namespace Sports.Services
     {
         #region properties
         private readonly IAuthRepo _authRepo;
+        private readonly IConfiguration _config;
         #endregion
 
         #region ctor
@@ -18,27 +24,29 @@ namespace Sports.Services
 
         #region methods
 
+
         public async Task<string> Login(LoginModel loginModel)
         {
-            bool res = await _authRepo.Login(loginModel);
-
-            if(res == false) 
+            string res = await _authRepo.Login(loginModel);
+            if (res!=null)
             {
-                return "Invalid Username or Password";
+                return res;
             }
-            return "Logged in Successfully!";
+            return "Doesn't logged in";
         }
 
         public async Task<string> Register(RegisterModel registerModel)
         {
             bool res = await _authRepo.Register(registerModel);
-            if(res == false)
+            if (res)
             {
-                return "Interval Server Error";
+                return "Registered Successfully";
             }
-            return "Registered Successfully";
+            return "Can't registered";
         }
 
-        #endregion
     }
+
+    #endregion
 }
+

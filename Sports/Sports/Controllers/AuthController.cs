@@ -6,8 +6,16 @@ using Sports.Repository;
 
 namespace Sports.Controllers
 {
+    public class LoginResponse
+    {
+        public string Message { get; set; }
+        public string Token { get; set; }
+    }
+
     [Route("api/[controller]")]
     [ApiController]
+
+
     public class AuthController : ControllerBase
     {
         #region props
@@ -31,8 +39,17 @@ namespace Sports.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginModel loginModel)
         {
-            var result = await _authService.Login(loginModel);
-            return Ok(result); // You might consider returning a JSON object or a more structured response
+            string token = await _authService.Login(loginModel);
+
+            if (!string.IsNullOrEmpty(token))
+            {
+                var response = new { Token = token };
+                return Ok(response);
+            }
+            else
+            {
+                return BadRequest("Invalid email or password");
+            }
         }
 
         [HttpPost("register")]
@@ -40,7 +57,7 @@ namespace Sports.Controllers
         {
             var result = await _authService.Register(registerModel);
             _emailService.SendRegisterMail(registerModel.Email, "Welcome");
-            return Ok(result); // Similarly, you might consider returning a JSON object or a more structured response
+            return Ok(result); 
         }
 
         #endregion
