@@ -4,7 +4,7 @@
 
 namespace Sports.Migrations
 {
-    public partial class DataType : Migration
+    public partial class init3 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

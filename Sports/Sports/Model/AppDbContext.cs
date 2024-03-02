@@ -10,6 +10,6 @@ namespace Sports.Model
         {
         }
 
-        public DbSet<User> Users{ get; set; }
+        public DbSet<User> UserModel{ get; set; }
     }
 }

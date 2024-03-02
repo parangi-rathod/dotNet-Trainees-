@@ -12,8 +12,8 @@ using Sports.Model;
 namespace Sports.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240229064925_password salt column deleted")]
-    partial class passwordsaltcolumndeleted
+    [Migration("20240301185816_init2")]
+    partial class init2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -65,12 +65,16 @@ namespace Sports.Migrations
                     b.Property<int?>("Weight")
                         .HasColumnType("int");
 
+                    b.Property<bool>("isMember")
+                        .HasColumnType("bit")
+                        .HasColumnName("isMember");
+
                     b.Property<int>("role")
                         .HasColumnType("int");
 
                     b.HasKey("UserId");
 
-                    b.ToTable("Users");
+                    b.ToTable("UserModel");
                 });
 #pragma warning restore 612, 618
         }

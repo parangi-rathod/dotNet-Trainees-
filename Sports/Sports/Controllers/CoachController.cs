@@ -1,32 +1,48 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Sports.Interface; // Assuming ICoachService is in this namespace
 using Sports.Model;
 
 namespace Sports.Controllers
 {
-    [Authorize(Roles="Coach")]
     [Route("api/[controller]")]
     [ApiController]
     public class CoachController : ControllerBase
     {
+        private readonly ICoachService _coachService;
 
-        private readonly AppDbContext _context;
-        public CoachController(AppDbContext context)
+        public CoachController(ICoachService coachService)
         {
-            _context = context;
+            _coachService = coachService;
         }
+
         [HttpGet]
-        public async Task<ActionResult> AddPlayer()
+        [Route("AddPlayers")]
+        public async Task<ActionResult> AddPlayer(int id)
         {
-            var res = await _context.Users.ToListAsync();
+            var res = await _coachService.AddPlayerToTeam(id);
+            if(res != null)
+            {
+                return Ok(res);
+            }
+            return BadRequest(res);
+        }
+
+        [HttpPut]
+        [Route("AssignCaptain")]
+        public async Task<IActionResult> AssignCaptain(int id)
+        {
+            var res = await _coachService.AssignCaptain(id);
             return Ok(res);
         }
-        [HttpPut]
-        public async Task<ActionResult> AssignCaptain()
+
+        [HttpGet]
+        [Route("ViewPlayers")]
+        public IActionResult GetTeam()
         {
-            var res = await _context.Users.ToListAsync();
-            return Ok(res);
+            return Ok(Team.Players); 
         }
     }
 }

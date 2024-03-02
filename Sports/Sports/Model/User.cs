@@ -43,6 +43,7 @@ namespace Sports.Model
         public virtual Role role { get; set; }
         public int? Height { get; set; }
         public int? Weight { get; set; }
+        public bool isMember { get; set; } = false;
 
     }
 }

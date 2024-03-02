@@ -12,8 +12,8 @@ using Sports.Model;
 namespace Sports.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240227134127_t1")]
-    partial class t1
+    [Migration("20240301185912_init3")]
+    partial class init3
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -54,20 +54,10 @@ namespace Sports.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasMaxLength(14)
-                        .HasColumnType("nvarchar(14)");
-
-                    b.Property<byte[]>("PasswordHash")
+                    b.Property<byte[]>("Password")
                         .IsRequired()
                         .HasColumnType("varbinary(max)")
-                        .HasColumnName("PasswordHash");
-
-                    b.Property<byte[]>("PasswordSalt")
-                        .IsRequired()
-                        .HasColumnType("varbinary(max)")
-                        .HasColumnName("PasswordSalt");
+                        .HasColumnName("Password");
 
                     b.Property<string>("TotalMatchesPlayed")
                         .HasColumnType("nvarchar(max)");
@@ -75,12 +65,15 @@ namespace Sports.Migrations
                     b.Property<int?>("Weight")
                         .HasColumnType("int");
 
+                    b.Property<bool>("isMember")
+                        .HasColumnType("bit");
+
                     b.Property<int>("role")
                         .HasColumnType("int");
 
                     b.HasKey("UserId");
 
-                    b.ToTable("Users");
+                    b.ToTable("UserModel");
                 });
 #pragma warning restore 612, 618
         }

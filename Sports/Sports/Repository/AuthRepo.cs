@@ -34,7 +34,7 @@ namespace Sports.Repository
             var userEmail = await UserExists(loggingUser);
             if (userEmail != null)
             {
-                var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == userEmail);
+                var user = await _context.UserModel.FirstOrDefaultAsync(u => u.Email == userEmail);
 
                 byte[] inputPasswordHash = CreatePasswordHash(loggingUser.Password);
                 if (Convert.ToBase64String(inputPasswordHash) == Convert.ToBase64String(user.Password))
@@ -48,7 +48,7 @@ namespace Sports.Repository
 
         public async Task<string> UserExists(LoginModel loginModel)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == loginModel.Email);
+            var user = await _context.UserModel.FirstOrDefaultAsync(u => u.Email == loginModel.Email);
 
             if (user != null)
             {
@@ -77,7 +77,7 @@ namespace Sports.Repository
             };
             try
             {
-                _context.Users.Add(user);
+                _context.UserModel.Add(user);
                 await _context.SaveChangesAsync();
                 return true; 
             }

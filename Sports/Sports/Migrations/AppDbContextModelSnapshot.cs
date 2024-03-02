@@ -63,12 +63,15 @@ namespace Sports.Migrations
                     b.Property<int?>("Weight")
                         .HasColumnType("int");
 
+                    b.Property<bool>("isMember")
+                        .HasColumnType("bit");
+
                     b.Property<int>("role")
                         .HasColumnType("int");
 
                     b.HasKey("UserId");
 
-                    b.ToTable("Users");
+                    b.ToTable("UserModel");
                 });
 #pragma warning restore 612, 618
         }

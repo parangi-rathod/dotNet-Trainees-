@@ -12,8 +12,8 @@ using Sports.Model;
 namespace Sports.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240228101527_Password column is deleted")]
-    partial class Passwordcolumnisdeleted
+    [Migration("20240302134717_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -54,15 +54,10 @@ namespace Sports.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<byte[]>("PasswordHash")
+                    b.Property<byte[]>("Password")
                         .IsRequired()
                         .HasColumnType("varbinary(max)")
-                        .HasColumnName("PasswordHash");
-
-                    b.Property<byte[]>("PasswordSalt")
-                        .IsRequired()
-                        .HasColumnType("varbinary(max)")
-                        .HasColumnName("PasswordSalt");
+                        .HasColumnName("Password");
 
                     b.Property<string>("TotalMatchesPlayed")
                         .HasColumnType("nvarchar(max)");
@@ -70,12 +65,15 @@ namespace Sports.Migrations
                     b.Property<int?>("Weight")
                         .HasColumnType("int");
 
+                    b.Property<bool>("isMember")
+                        .HasColumnType("bit");
+
                     b.Property<int>("role")
                         .HasColumnType("int");
 
                     b.HasKey("UserId");
 
-                    b.ToTable("Users");
+                    b.ToTable("UserModel");
                 });
 #pragma warning restore 612, 618
         }
