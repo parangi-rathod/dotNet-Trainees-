@@ -12,13 +12,14 @@ namespace Sports.Services
     {
         #region properties
         private readonly IAuthRepo _authRepo;
-        private readonly IConfiguration _config;
+        private readonly IEmailService _emailService;
         #endregion
 
         #region ctor
-        public AuthService(IAuthRepo authRepo)
+        public AuthService(IAuthRepo authRepo, IEmailService emailService)
         {
             _authRepo = authRepo;
+            _emailService = emailService;
         }
         #endregion
 
@@ -40,11 +41,22 @@ namespace Sports.Services
             bool res = await _authRepo.Register(registerModel);
             if (res)
             {
+                _emailService.SendRegisterMail(registerModel.Email, "Welcome");
                 return "Registered Successfully";
             }
             return "Can't registered";
         }
 
+        public async Task<bool> ResetPassword(ResetPasswordDTO resetPasswordDTO)
+        {
+            bool res = await _authRepo.ResetPassword(resetPasswordDTO);
+            if (res)
+            {
+                _emailService.SendResetPassEmail(resetPasswordDTO.Email, "Change of Password");
+                return true;
+            }
+            return false;
+        }
     }
 
     #endregion

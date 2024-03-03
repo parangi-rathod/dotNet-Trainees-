@@ -17,6 +17,7 @@ namespace Sports.Repository
         #region prop
         private readonly AppDbContext _context;
         private readonly IConfiguration _config;
+        private readonly IUserRepo _userRepo;
         #endregion
 
         #region ctor
@@ -77,9 +78,13 @@ namespace Sports.Repository
             };
             try
             {
-                _context.UserModel.Add(user);
-                await _context.SaveChangesAsync();
-                return true; 
+                if (user.role != Role.Coach && !(await _userRepo.CheckCaptain(user)))
+                {
+                    _context.UserModel.Add(user);
+                    await _context.SaveChangesAsync();
+                    return true;
+                }
+                return false;
             }
             catch (Exception ex)
             {
@@ -90,10 +95,29 @@ namespace Sports.Repository
 
         }
 
+        public async Task<bool> CheckCaptain(User user)
+        {
+            bool isCaptainRegistered = await _context.UserModel.AnyAsync(u => u.role == Role.Captain);
+            return isCaptainRegistered;
+        }
+
+        public async Task<bool> ResetPassword(ResetPasswordDTO resetPasswordDTO)
+        {
+            var user = await _context.UserModel.FirstOrDefaultAsync(u => u.Email == resetPasswordDTO.Email);
+            if(user != null)
+            {
+                byte[] hashedPass = CreatePasswordHash(resetPasswordDTO.NewPassword);  
+                user.Password= hashedPass;
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            return false;
+
+        }
+
         #endregion
 
         #region miscellaneous methods
-
 
         public async Task<string> GenerateJwtToken(string userRole)
         {

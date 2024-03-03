@@ -8,14 +8,15 @@ namespace Sports.Services
     {
         #region properties
         private readonly ICoachRepo _coachRepo;
-        private const int MaxTeamSize = 15;
-       
+        private readonly IUserRepo _userRepo;
+
         #endregion
 
         #region ctor
-        public CoachService(ICoachRepo coachRepo)
+        public CoachService(ICoachRepo coachRepo, IUserRepo userRepo)
         {
             _coachRepo= coachRepo;
+            _userRepo= userRepo;
         }
         #endregion
         public async Task<string> AssignCaptain(int id)
@@ -31,12 +32,11 @@ namespace Sports.Services
 
         public async Task<List<User>> AddPlayerToTeam(int id)
         {
-            var user = await _coachRepo.GetUserById(id);
+            var user = await _userRepo.GetUserById(id);
 
-            if (user != null && user.isMember == false)
+            if (user != null && user.isMember == false && Team.Players.Count < 16)
             {
                 Team.Players.Add(user);
-                user.isMember = true;
                 return Team.Players;
             }
 

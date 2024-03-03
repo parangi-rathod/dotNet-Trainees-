@@ -7,6 +7,7 @@ namespace Sports.Interface
     {
         Task<bool> Register(RegisterModel registerModel);
         Task<string> Login(LoginModel loginModel);
-        Task<string> UserExists(LoginModel loginModel);
+        Task<bool> CheckCaptain(User user);
+        Task<bool> ResetPassword(ResetPasswordDTO resetPasswordDTO);
     }
 }

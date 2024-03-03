@@ -34,7 +34,7 @@ namespace Sports.Services
         #endregion
 
         #region Login Mail
-        public void SendLoginMail(string email, string subject)
+        public void SendResetPassEmail(string email, string subject)
         {
             // Set up SMTP client
             SmtpClient client = new SmtpClient("smtp-mail.outlook.com", 587);
@@ -49,9 +49,9 @@ namespace Sports.Services
             mailMessage.Subject = subject;
             mailMessage.IsBodyHtml = true;
             StringBuilder mailBody = new StringBuilder();
-            mailBody.AppendFormat("<h1>User Logded In</h1>");
+            mailBody.AppendFormat("<h1>Password changed</h1>");
             mailBody.AppendFormat("<br />");
-            mailBody.AppendFormat("<p>Successfully logged in!</p>");
+            mailBody.AppendFormat("<p>Your password is changed!</p>");
             mailMessage.Body = mailBody.ToString();
 
             // Send email

@@ -6,12 +6,6 @@ using Sports.Repository;
 
 namespace Sports.Controllers
 {
-    public class LoginResponse
-    {
-        public string Message { get; set; }
-        public string Token { get; set; }
-    }
-
     [Route("api/[controller]")]
     [ApiController]
 
@@ -36,7 +30,7 @@ namespace Sports.Controllers
 
 
         #region APIs
-        [HttpPost("login")]
+        [HttpPost("Login")]
         public async Task<IActionResult> Login([FromBody] LoginModel loginModel)
         {
             string token = await _authService.Login(loginModel);
@@ -52,12 +46,18 @@ namespace Sports.Controllers
             }
         }
 
-        [HttpPost("register")]
+        [HttpPost("Register")]
         public async Task<IActionResult> Register([FromBody] RegisterModel registerModel)
         {
             var result = await _authService.Register(registerModel);
-            _emailService.SendRegisterMail(registerModel.Email, "Welcome");
             return Ok(result); 
+        }
+
+        [HttpPost("Reset Password")]
+        public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordDTO resetPasswordDTO)
+        {
+            var result = await _authService.ResetPassword(resetPasswordDTO);
+            return Ok(result);
         }
 
         #endregion

@@ -7,6 +7,7 @@ namespace Sports.Interface
     {
         Task<string> Register(RegisterModel registerModel);
         Task<string> Login(LoginModel loginModel);
+        Task<bool> ResetPassword(ResetPasswordDTO resetPasswordDTO);
        
     }
 }

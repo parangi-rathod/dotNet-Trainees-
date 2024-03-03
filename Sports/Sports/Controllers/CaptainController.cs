@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Sports.Interface;
+using Sports.Model;
 using Sports.Services;
 
 namespace Sports.Controllers
@@ -24,6 +25,13 @@ namespace Sports.Controllers
         {
             var res = await _captainService.FormFinalTeam(id);
             return Ok(res);
+        }
+
+        [HttpGet]
+        [Route("ViewPlayers")]
+        public IActionResult GetTeam()
+        {
+            return Ok(Team.FinalTeam);
         }
 
     }

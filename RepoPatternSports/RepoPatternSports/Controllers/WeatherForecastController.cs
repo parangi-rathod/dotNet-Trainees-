@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace Sports.Controllers
+namespace RepoPatternSports.Controllers
 {
     [ApiController]
     [Route("[controller]")]

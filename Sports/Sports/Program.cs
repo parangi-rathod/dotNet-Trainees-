@@ -67,9 +67,12 @@ builder.Services.AddSwaggerGen(c =>
 
 builder.Services.AddTransient<IAuthRepo, AuthRepo>();
 builder.Services.AddTransient<ICoachRepo, CoachRepo>();
+builder.Services.AddTransient<IPlayerRepo, PlayerRepo>();
+builder.Services.AddTransient<IUserRepo, UserRepo>();
 builder.Services.AddTransient<IAuthService, AuthService>();
 builder.Services.AddTransient<ICoachService, CoachService>();
 builder.Services.AddTransient<ICaptainService, CaptainService>();
+builder.Services.AddTransient<IPlayerService, PlayerService>();
 builder.Services.AddTransient<IEmailService, EmailService>();
 
 var app = builder.Build();
