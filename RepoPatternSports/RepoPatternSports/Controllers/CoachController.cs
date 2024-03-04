@@ -8,6 +8,7 @@ namespace RepoPatternSports.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+        [Authorize(Roles ="Coach")]
     public class CoachController : ControllerBase
     {
         private readonly ICoachService _coachService;
@@ -19,7 +20,6 @@ namespace RepoPatternSports.Controllers
 
         [HttpGet]
         [Route("AddPlayers")]
-        [Authorize(Roles ="Coach")]
         public async Task<ActionResult> AddPlayer(int id)
         {
             var res = await _coachService.AddPlayerToTeam(id);
