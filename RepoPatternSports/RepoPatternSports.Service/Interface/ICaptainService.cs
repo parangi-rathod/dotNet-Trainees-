@@ -1,4 +1,5 @@
 ﻿using RepoPatternSports.Repository.Models;
+using RepoPatternSports.Service.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace RepoPatternSports.Service.Interface
 {
     public interface ICaptainService
     {
-        Task<List<User>> FormFinalTeam(int id);
-
+        Task<ResponseDTO> FormFinalTeam(int id);
+        Task<List<User>> ViewTeam();
     }
 }

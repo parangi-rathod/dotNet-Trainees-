@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace RepoPatternSports.Repository.Interface
 {
-    public interface IUserRepo
+    public interface ICaptainRepo
     {
-        Task<User> GetUserById(int id);
-        Task<bool> CheckCaptain(User user);
-        Task UpdateUser(User user);
-        Task<User> GetUserByEmail(string email);
+        Task UpdateUserIsMem(int id);
+        Task<User> CheckIsMem(int id);
+        Task<int> CountIsMemPlayers();
+        Task<List<User>> GetIsMemPlayers();
     }
 }

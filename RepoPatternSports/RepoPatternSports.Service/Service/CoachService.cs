@@ -30,19 +30,29 @@ namespace RepoPatternSports.Service.Service
         public async Task<List<User>> AddPlayerToTeam(int id)
         {
             var user = await _userRepo.GetUserById(id);
+
             if (user != null && user.isMember == false && Team.Players.Count < 16)
             {
-                Team.Players.Add(user);
-                return Team.Players;
+                if (!Team.Players.Contains(user))
+                {
+                    Team.Players.Add(user);
+                    return Team.Players;
+                }
+                else
+                {
+                    return Team.Players;
+                }
             }
+
             return null;
         }
+
 
         public async Task<ResponseDTO> AssignCaptain(int id)
         {
            bool res1 = await _coachRepo.AssignCaptain(id);
             bool res2 = await _coachRepo.CaptainExists(id);
-            if (res1 && !res2)
+            if (res1 == true && res2==false)
             {
                 return new ResponseDTO
                 {

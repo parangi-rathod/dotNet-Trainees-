@@ -9,6 +9,8 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
+using System.Security.Cryptography.X509Certificates;
+using MimeKit;
 
 namespace RepoPatternSports.Service.Service
 {
@@ -17,13 +19,17 @@ namespace RepoPatternSports.Service.Service
         #region properties
         private readonly IAuthRepo _authRepo;
         private readonly IConfiguration _config;
+        private readonly IEmailService _emailService;
+        private readonly IUserRepo _userRepo;
         #endregion
 
         #region ctor
-        public AuthService(IAuthRepo authRepo, IConfiguration configuration)
+        public AuthService(IAuthRepo authRepo, IConfiguration configuration, IEmailService emailService, IUserRepo userRepo)
         {
             _authRepo = authRepo;
             _config = configuration;
+            _emailService = emailService;
+            _userRepo = userRepo;
         }
 
         #endregion
@@ -50,7 +56,13 @@ namespace RepoPatternSports.Service.Service
                     var res = _authRepo.Register(user);
                     if (res != null)
                     {
-                      
+                        var emailObj = new EmailDTO
+                        {
+                            Email = user.Email,
+                            Subject = "Registration",
+                            Body = "Welcome, you have registered successfully"
+                        };
+                        _emailService.SendEmail(emailObj);
                         return new ResponseDTO
                         {
                             Status = 200,
@@ -113,7 +125,26 @@ namespace RepoPatternSports.Service.Service
             }
         }
 
-
+        public async Task<ResponseDTO> ResetPassword(ResetPasswordDTO resetPasswordDTO)
+        {
+            var user = await _userRepo.GetUserByEmail(resetPasswordDTO.Email);
+            if (user != null)
+            {
+                byte[] hashedPass = CreatePasswordHash(resetPasswordDTO.NewPassword);
+                user.Password = hashedPass;
+                await _userRepo.UpdateUser(user);
+                return new ResponseDTO
+                {
+                    Status = 200,
+                    Message = "Password modified!"
+                };
+            }
+            return new ResponseDTO
+            {
+                Status= 400,
+                Message = "Password Can't modified"
+            };
+        }
 
 
 

@@ -16,6 +16,8 @@ namespace RepoPatternSports.Repository.Repository
             _context= context;
         }
         #endregion
+
+        #region methods
         public async Task<bool> Register(User user)
         {
             if(user!=null)
@@ -50,5 +52,8 @@ namespace RepoPatternSports.Repository.Repository
                 return "";
             }
         }
+
+        
+        #endregion
     }
 }

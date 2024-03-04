@@ -26,9 +26,9 @@ namespace RepoPatternSports.Repository.Models
         [Required]
         public string Lastname { get; set; }
         //[Required]
-        //[MinLength(8), MaxLength(14)]
         //public string Password{ get; set; }
         [JsonIgnore]
+        [MinLength(8), MaxLength(14)]
         [Column("Password")]
         public byte[] Password { get; set; }
 
@@ -49,5 +49,9 @@ namespace RepoPatternSports.Repository.Models
         public int? Weight { get; set; }
         public bool isMember { get; set; } = false;
 
+        public static implicit operator List<object>(User? v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

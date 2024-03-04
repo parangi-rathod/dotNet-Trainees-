@@ -67,11 +67,22 @@ builder.Services.AddSwaggerGen(c =>
                     });
 });
 
-builder.Services.AddTransient<IAuthRepo, AuthRepo>();
-builder.Services.AddTransient<IAuthService, AuthService>();
-builder.Services.AddTransient<IAuthRepo, AuthRepo>();
-builder.Services.AddTransient<ICoachRepo, CoachRepo>();
-builder.Services.AddTransient<ICoachService, CoachService>();
+builder.Services.AddScoped<IAuthRepo, AuthRepo>();
+builder.Services.AddScoped<IAuthService, AuthService>();
+
+builder.Services.AddScoped<ICoachRepo, CoachRepo>();
+builder.Services.AddScoped<ICoachService, CoachService>();
+
+builder.Services.AddScoped<ICaptainRepo, CaptainRepo>();
+builder.Services.AddScoped<ICaptainService, CaptainService>();
+
+builder.Services.AddScoped<IPlayerRepo, PlayerRepo>();
+builder.Services.AddScoped<IPlayerService, PlayerService>();
+
+builder.Services.AddScoped<IEmailService, EmailService>();
+
+
+
 builder.Services.AddTransient<IUserRepo, UserRepo>();
 
 var app = builder.Build();

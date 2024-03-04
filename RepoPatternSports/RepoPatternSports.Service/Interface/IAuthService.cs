@@ -12,7 +12,7 @@ namespace RepoPatternSports.Service.Interface
     {
         Task<ResponseDTO> Register(RegisterDTO registerDTO);
         Task<ResponseDTO> Login(LoginDTO loginDTO);
-
+        Task<ResponseDTO> ResetPassword(ResetPasswordDTO resetPasswordDTO);
 
     }
 }

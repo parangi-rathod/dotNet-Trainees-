@@ -29,10 +29,22 @@ namespace RepoPatternSports.Repository.Repository
             var user = await _context.UserModel.FirstOrDefaultAsync(u => u.UserId.Equals(id));
             return user;
         }
+
+        public async Task<User> GetUserByEmail(string email)
+        {
+            return await _context.UserModel.FirstOrDefaultAsync(u => u.Email == email);
+        }
+
         public async Task<bool> CheckCaptain(User user)
         {
             bool isCaptainRegistered = await _context.UserModel.AnyAsync(u => u.role.Equals(Role.Captain));
             return isCaptainRegistered;
+        }
+
+        public async Task UpdateUser(User user)
+        {
+            _context.Update(user);
+            await _context.SaveChangesAsync();
         }
 
     }
