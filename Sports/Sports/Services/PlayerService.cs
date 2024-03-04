@@ -1,6 +1,5 @@
 ﻿using Sports.Interface;
 using Sports.Model;
-using Sports.Repository;
 
 namespace Sports.Services
 {

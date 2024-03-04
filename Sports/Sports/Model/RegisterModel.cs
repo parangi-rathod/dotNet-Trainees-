@@ -28,6 +28,6 @@ namespace Sports.Model
         public DateTime DateOfBirth { get; set; }
 
         [Required(ErrorMessage = "Role is required")]
-        public virtual Role Role { get; set; }
+        public virtual Role role { get; set; }
     }
 }

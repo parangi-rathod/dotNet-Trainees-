@@ -4,9 +4,11 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Sports.Interface; // Assuming ICoachService is in this namespace
 using Sports.Model;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Sports.Controllers
 {
+    [Authorize(Roles ="Coach")]
     [Route("api/[controller]")]
     [ApiController]
     public class CoachController : ControllerBase

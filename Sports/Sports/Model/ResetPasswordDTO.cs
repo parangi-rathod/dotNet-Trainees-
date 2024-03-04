@@ -1,9 +1,7 @@
-﻿namespace Sports.Model
-{
-    using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-    namespace RepoPatternSports.Repository.DTOs
-    {
+namespace Sports.Model
+{
         public class ResetPasswordDTO
         {
             [Required(ErrorMessage = "Email is required")]
@@ -21,4 +19,3 @@
         }
     }
 
-}

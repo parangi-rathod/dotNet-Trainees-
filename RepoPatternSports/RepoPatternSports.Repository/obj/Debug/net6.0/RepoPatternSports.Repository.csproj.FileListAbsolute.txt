@@ -1,0 +1,14 @@
+E:\Bacancy\RepoPatternSports\RepoPatternSports.Repository\bin\Debug\net6.0\RepoPatternSports.Repository.deps.json
+E:\Bacancy\RepoPatternSports\RepoPatternSports.Repository\bin\Debug\net6.0\RepoPatternSports.Repository.runtimeconfig.json
+E:\Bacancy\RepoPatternSports\RepoPatternSports.Repository\bin\Debug\net6.0\RepoPatternSports.Repository.dll
+E:\Bacancy\RepoPatternSports\RepoPatternSports.Repository\bin\Debug\net6.0\RepoPatternSports.Repository.pdb
+E:\Bacancy\RepoPatternSports\RepoPatternSports.Repository\obj\Debug\net6.0\RepoPatternSports.Repository.csproj.AssemblyReference.cache
+E:\Bacancy\RepoPatternSports\RepoPatternSports.Repository\obj\Debug\net6.0\RepoPatternSports.Repository.GeneratedMSBuildEditorConfig.editorconfig
+E:\Bacancy\RepoPatternSports\RepoPatternSports.Repository\obj\Debug\net6.0\RepoPatternSports.Repository.AssemblyInfoInputs.cache
+E:\Bacancy\RepoPatternSports\RepoPatternSports.Repository\obj\Debug\net6.0\RepoPatternSports.Repository.AssemblyInfo.cs
+E:\Bacancy\RepoPatternSports\RepoPatternSports.Repository\obj\Debug\net6.0\RepoPatternSports.Repository.csproj.CoreCompileInputs.cache
+E:\Bacancy\RepoPatternSports\RepoPatternSports.Repository\obj\Debug\net6.0\RepoPatternSports.Repository.dll
+E:\Bacancy\RepoPatternSports\RepoPatternSports.Repository\obj\Debug\net6.0\refint\RepoPatternSports.Repository.dll
+E:\Bacancy\RepoPatternSports\RepoPatternSports.Repository\obj\Debug\net6.0\RepoPatternSports.Repository.pdb
+E:\Bacancy\RepoPatternSports\RepoPatternSports.Repository\obj\Debug\net6.0\RepoPatternSports.Repository.genruntimeconfig.cache
+E:\Bacancy\RepoPatternSports\RepoPatternSports.Repository\obj\Debug\net6.0\ref\RepoPatternSports.Repository.dll

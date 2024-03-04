@@ -32,8 +32,8 @@ namespace Sports.Repository
 
         public async Task<bool> CaptainExists(int id)
         {
-            var res = await _context.UserModel.FirstOrDefaultAsync(u => u.UserId == id);
-            if(res!=null)
+            var res = await _context.UserModel.FirstOrDefaultAsync(u => u.UserId == id );
+            if(res.role == Role.Captain)
             {
                 return true; //yes, captain already exists
             }

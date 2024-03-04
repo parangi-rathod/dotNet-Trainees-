@@ -6,6 +6,7 @@ using Sports.Interface;
 using Sports.Model;
 using Sports.Repository;
 using Sports.Services;
+using System.Security.Claims;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,7 +23,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
         ValidIssuer = builder.Configuration["Jwt:Issuer"],
         ValidAudience = builder.Configuration["Jwt:Audience"],
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])),
-        RoleClaimType= "http://schemas.microsoft.com/ws/2008/06/identity/claims/role",
+        RoleClaimType= ClaimTypes.Role
     };
 
 });
@@ -69,6 +70,7 @@ builder.Services.AddTransient<IAuthRepo, AuthRepo>();
 builder.Services.AddTransient<ICoachRepo, CoachRepo>();
 builder.Services.AddTransient<IPlayerRepo, PlayerRepo>();
 builder.Services.AddTransient<IUserRepo, UserRepo>();
+builder.Services.AddTransient<ICaptainRepo, CaptainRepo>();
 builder.Services.AddTransient<IAuthService, AuthService>();
 builder.Services.AddTransient<ICoachService, CoachService>();
 builder.Services.AddTransient<ICaptainService, CaptainService>();

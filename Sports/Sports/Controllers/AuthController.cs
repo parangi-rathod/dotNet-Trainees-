@@ -1,8 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Sports.Interface;
 using Sports.Model;
-using Sports.Repository;
 
 namespace Sports.Controllers
 {

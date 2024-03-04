@@ -1,12 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using Org.BouncyCastle.Asn1.Cmp;
 using Sports.Interface;
 using Sports.Model;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
+using Microsoft.Extensions.Configuration;
 using System.Text;
 
 namespace Sports.Repository
@@ -78,12 +77,15 @@ namespace Sports.Repository
             };
             try
             {
-                if (user.role != Role.Coach && !(await _userRepo.CheckCaptain(user)))
+                if (user.role != Role.Coach && user.role != Role.Captain)
                 {
+                    // Allow the user to opt for the player role
                     _context.UserModel.Add(user);
                     await _context.SaveChangesAsync();
                     return true;
                 }
+
+
                 return false;
             }
             catch (Exception ex)
@@ -97,9 +99,10 @@ namespace Sports.Repository
 
         public async Task<bool> CheckCaptain(User user)
         {
-            bool isCaptainRegistered = await _context.UserModel.AnyAsync(u => u.role == Role.Captain);
+            bool isCaptainRegistered = await _context.UserModel.AnyAsync(u => u.role == Role.Captain && u.UserId == user.UserId);
             return isCaptainRegistered;
         }
+
 
         public async Task<bool> ResetPassword(ResetPasswordDTO resetPasswordDTO)
         {

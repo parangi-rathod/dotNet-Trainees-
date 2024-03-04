@@ -5,7 +5,7 @@ using Sports.Services;
 
 namespace Sports.Controllers
 {
-    [Authorize("Player")]
+    [Authorize(Roles = "Player")]
     [Route("api/[controller]")]
     [ApiController]
     public class PlayerController : ControllerBase

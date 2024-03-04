@@ -7,9 +7,9 @@ using Sports.Services;
 
 namespace Sports.Controllers
 {
-    [Authorize(Roles ="Captain")]
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles ="Captain")]
     public class CaptainController : ControllerBase
     {
         private readonly ICaptainService _captainService;

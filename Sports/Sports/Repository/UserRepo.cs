@@ -32,9 +32,10 @@ namespace Sports.Repository
         }
         public async Task<bool> CheckCaptain(User user)
         {
-            bool isCaptainRegistered = await _context.UserModel.AnyAsync(u => u.role == Role.Captain);
+            bool isCaptainRegistered = await _context.UserModel.AnyAsync(u => u.role == Role.Captain && u.UserId == user.UserId);
             return isCaptainRegistered;
         }
+
 
     }
 }
