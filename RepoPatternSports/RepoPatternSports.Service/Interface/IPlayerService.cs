@@ -9,7 +9,7 @@ namespace RepoPatternSports.Service.Interface
 {
     public interface IPlayerService
     {
-        Task<User> GetCoach();
-        Task<User> GetCaptain();
+        Task<object> GetCaptain();
+        Task<object> GetCoach();
     }
 }

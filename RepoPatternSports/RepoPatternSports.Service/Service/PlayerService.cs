@@ -21,15 +21,35 @@ namespace RepoPatternSports.Service.Service
             _playerRepo = playerRepo;
         }
         #endregion
-        public async Task<User> GetCaptain()
+        public async Task<object> GetCaptain()
         {
-            return await _playerRepo.GetCaptain();
+            var user1 = await _playerRepo.GetCaptain();
+
+            var user = new
+            {
+                Name = user1.Firstname + user1.Lastname,
+                Email = user1.Email,
+                Contact = user1.ContactNumber
+            };
+
+            return user;
         }
 
-        public async Task<User> GetCoach()
+
+        public async Task<object> GetCoach()
         {
-            return await _playerRepo.GetCoach();
+            var user1 = await _playerRepo.GetCoach();
+
+            var user = new
+            {
+                Name = user1.Firstname +" "+ user1.Lastname,
+                Email = user1.Email,
+                Contact = user1.ContactNumber
+            };
+
+            return user;
         }
+
     }
 }
 
