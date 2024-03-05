@@ -133,6 +133,13 @@ namespace RepoPatternSports.Service.Service
                 byte[] hashedPass = CreatePasswordHash(resetPasswordDTO.NewPassword);
                 user.Password = hashedPass;
                 await _userRepo.UpdateUser(user);
+                var emailObj = new EmailDTO
+                {
+                    Email = user.Email,
+                    Subject = "Password reset",
+                    Body = "Your Password changed successfully!"
+                };
+                _emailService.SendEmail(emailObj);
                 return new ResponseDTO
                 {
                     Status = 200,
