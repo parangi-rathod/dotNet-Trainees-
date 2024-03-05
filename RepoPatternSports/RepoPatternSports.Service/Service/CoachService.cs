@@ -31,32 +31,54 @@ namespace RepoPatternSports.Service.Service
         {
             var user = await _userRepo.GetUserById(id);
 
-            if (user != null && user.isMember == false && Team.Players.Count < 16)
+            if (user != null)
             {
-                if (!Team.Players.Contains(user))
+                int teamMembersCount = await _userRepo.GetTeamMembersCount();
+
+                if (user.isMember == false && teamMembersCount < 16)
                 {
-                    await _coachRepo.UpdateUserIsMem(id);
-                    Team.Players.Add(user);
+                    if (!Team.Players.Contains(user))
+                    {
+                        await _coachRepo.UpdateUserIsMem(id);
+                        Team.Players.Add(user);
+                        return new ResponseDTO
+                        {
+                            Status = 200,
+                            Message = "Player added into team!"
+                        };
+                    }
                     return new ResponseDTO
                     {
-                        Status = 200,
-                        Message = "Player added into team!"
+                        Status = 400,
+                        Message = $"Team already contains user with {id}"
                     };
                 }
-                return new ResponseDTO
+                else if (user.isMember == true)
                 {
-                    Status = 400,
-                    Message = $"Team already contains user with {id}"
-                };
+                    return new ResponseDTO
+                    {
+                        Status = 400,
+                        Message = $"User with {id} is already a member of the team"
+                    };
+                }
+                else if (teamMembersCount >= 15)
+                {
+                    return new ResponseDTO
+                    {
+                        Status = 400,
+                        Message = "Team can only contain up to 15 players"
+                    };
+                }
             }
 
             return new ResponseDTO
             {
-                Status = 400,
-                Message = $"Team can only contains upto 16 players OR Team already contains user with {id}"
+                Status = 404,
+                Message = $"User with id {id} not found or invalid"
             };
-
         }
+
+
 
         public async Task<ResponseDTO> AssignCaptain(int id)
         {

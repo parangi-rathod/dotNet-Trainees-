@@ -14,5 +14,6 @@ namespace RepoPatternSports.Repository.Interface
         Task<User> UpdateUser(User user);
         Task<User> GetUserByEmail(string email);
         Task<User> GetUserByEmailAndPass(string email, byte[] password);
+        Task<int> GetTeamMembersCount();
     }
 }

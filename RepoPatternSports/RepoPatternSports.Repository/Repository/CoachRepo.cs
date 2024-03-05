@@ -32,6 +32,7 @@ namespace RepoPatternSports.Repository.Repository
         {
             var res = await _context.UserModel.FirstOrDefaultAsync(u => u.UserId == id);
             res.role = Role.Captain;
+            res.isMember = true;
             await _context.SaveChangesAsync();
             return true;
         }

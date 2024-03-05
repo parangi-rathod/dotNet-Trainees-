@@ -55,6 +55,13 @@ namespace RepoPatternSports.Repository.Repository
             // Return the updated user object
             return user;
         }
+        public async Task<int> GetTeamMembersCount()
+        {
+            // Query the database to count the number of users who are team members
+            int count = await _context.UserModel.CountAsync(u => u.isMember);
+
+            return count;
+        }
 
 
     }
