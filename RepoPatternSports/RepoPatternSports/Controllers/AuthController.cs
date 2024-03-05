@@ -37,7 +37,7 @@ namespace RepoPatternSports.Controllers
             return Ok(await _authService.Register(registerDTO));
         }
 
-        [HttpPost("Forgot Password")]
+        [HttpPost("Reset Password")]
         public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordDTO resetPasswordDTO)
         {
             var result = await _authService.ResetPassword(resetPasswordDTO);

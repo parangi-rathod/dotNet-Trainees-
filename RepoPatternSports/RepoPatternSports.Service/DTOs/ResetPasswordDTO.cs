@@ -10,11 +10,11 @@ namespace RepoPatternSports.Repository.DTOs
 
         [Required(ErrorMessage = "New password is required")]
         [DataType(DataType.Password)]
-        public string NewPassword { get; set; }
+        public string OldPassword { get; set; }
 
         [Required(ErrorMessage = "Confirm password is required")]
         [DataType(DataType.Password)]
-        [Compare("NewPassword", ErrorMessage = "Passwords do not match")]
-        public string ConfirmPassword { get; set; }
+        
+        public string NewPassword { get; set; }
     }
 }

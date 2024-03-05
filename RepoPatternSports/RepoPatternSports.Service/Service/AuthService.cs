@@ -125,35 +125,87 @@ namespace RepoPatternSports.Service.Service
             }
         }
 
+        //public async Task<ResponseDTO> ResetPassword(ResetPasswordDTO resetPasswordDTO)
+        //{
+        //    var user = await _userRepo.GetUserByEmail(resetPasswordDTO.Email);
+        //    if (user != null)
+        //    {
+        //        byte[] hashedPass = CreatePasswordHash(resetPasswordDTO.NewPassword);
+        //        user.Password = hashedPass;
+        //        await _userRepo.UpdateUser(user);
+        //        var emailObj = new EmailDTO
+        //        {
+        //            Email = user.Email,
+        //            Subject = "Password reset",
+        //            Body = "Your Password changed successfully!"
+        //        };
+        //        _emailService.SendEmail(emailObj);
+        //        return new ResponseDTO
+        //        {
+        //            Status = 200,
+        //            Message = "Password modified!"
+        //        };
+        //    }
+        //    return new ResponseDTO
+        //    {
+        //        Status= 400,
+        //        Message = "Password Can't modified"
+        //    };
+        //}
+
         public async Task<ResponseDTO> ResetPassword(ResetPasswordDTO resetPasswordDTO)
         {
-            var user = await _userRepo.GetUserByEmail(resetPasswordDTO.Email);
-            if (user != null)
+            try
             {
-                byte[] hashedPass = CreatePasswordHash(resetPasswordDTO.NewPassword);
-                user.Password = hashedPass;
-                await _userRepo.UpdateUser(user);
-                var emailObj = new EmailDTO
+                byte[] hashedform = CreatePasswordHash(resetPasswordDTO.OldPassword);
+                var user = await _userRepo.GetUserByEmailAndPass(resetPasswordDTO.Email, hashedform);
+                if (user == null)
                 {
-                    Email = user.Email,
-                    Subject = "Password reset",
-                    Body = "Your Password changed successfully!"
-                };
-                _emailService.SendEmail(emailObj);
+                    return new ResponseDTO()
+                    {
+                        Status = 400,
+                        Message = "User not found : try to add correct details"
+                    };
+                }
+                byte[] HashedFormOfNewPassword = CreatePasswordHash(resetPasswordDTO.NewPassword);
+                user.Password = HashedFormOfNewPassword;
+                var updateUser = await _userRepo.UpdateUser(user);
+                if (updateUser != null)
+                {
+                    var emailObj = new EmailDTO
+                    {
+                        Email = user.Email,
+                        Subject = "Password reset",
+                        Body = "Your Password changed successfully!"
+                    };
+                    _emailService.SendEmail(emailObj);
+                    return new ResponseDTO
+                    {
+                        Status = 200,
+                        Message = "Password changed successfully!!"
+                    };
+                    
+                }
+                else
+                {
+                    return new ResponseDTO()
+                    {
+                        Status = 400,
+                        Message = "Failed"
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
                 return new ResponseDTO
                 {
-                    Status = 200,
-                    Message = "Password modified!"
+                    Status = 400,
+                    Message = "Failed",
+                    Error = ex.Message
                 };
             }
-            return new ResponseDTO
-            {
-                Status= 400,
-                Message = "Password Can't modified"
-            };
+
         }
-
-
 
         #endregion
 

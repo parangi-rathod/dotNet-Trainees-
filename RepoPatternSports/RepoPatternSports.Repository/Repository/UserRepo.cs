@@ -30,6 +30,12 @@ namespace RepoPatternSports.Repository.Repository
             return user;
         }
 
+        public async Task<User> GetUserByEmailAndPass(string email, byte[] password)
+        {
+            var user = await _context.UserModel.FirstOrDefaultAsync(u => u.Email.Equals(email) && u.Password.Equals(password));
+            return user;
+        }
+
         public async Task<User> GetUserByEmail(string email)
         {
             return await _context.UserModel.FirstOrDefaultAsync(u => u.Email == email);
@@ -41,11 +47,15 @@ namespace RepoPatternSports.Repository.Repository
             return isCaptainRegistered;
         }
 
-        public async Task UpdateUser(User user)
+        public async Task<User> UpdateUser(User user)
         {
             _context.Update(user);
             await _context.SaveChangesAsync();
+
+            // Return the updated user object
+            return user;
         }
+
 
     }
 }
