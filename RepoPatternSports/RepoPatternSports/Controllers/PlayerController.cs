@@ -28,14 +28,14 @@ namespace RepoPatternSports.Controllers
         public async Task<ActionResult> GetCoach()
         {
             var Coach = await _playerService.GetCoach();
-            return Ok(Coach.Firstname);
+            return Ok(Coach);
         }
         [HttpGet]
         [Route("ViewCaptain")]
         public async Task<ActionResult> GetCaptain()
         {
             var Captain = await _playerService.GetCaptain();
-            return Ok(Captain.Firstname);
+            return Ok(Captain);
         }
         #endregion
     }

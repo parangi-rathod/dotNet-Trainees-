@@ -47,13 +47,10 @@ namespace RepoPatternSports.Repository.Repository
         }
         public async Task<bool> CaptainExists(int id)
         {
-            var res = await _context.UserModel.FirstOrDefaultAsync(u => u.UserId.Equals(id) && u.role.Equals(Role.Captain));
-            if (res != null)
-            {
-                return true; //yes, captain already exists
-            }
-            return false;
+            var res = await _context.UserModel.FirstOrDefaultAsync(u => u.UserId == id && u.role == Role.Captain);
+            return res != null;
         }
+
 
         public async Task<List<User>> ViewTeam()
         {

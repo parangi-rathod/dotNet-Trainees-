@@ -57,26 +57,56 @@ namespace RepoPatternSports.Service.Service
             };
 
         }
-                
+
         public async Task<ResponseDTO> AssignCaptain(int id)
         {
-           bool res1 = await _coachRepo.AssignCaptain(id);
-            bool res2 = await _coachRepo.CaptainExists(id);
-            if (res1 == true && res2==false)
+            bool captainExists = await _coachRepo.CaptainExists(id);
+
+            if (!captainExists)
+            {
+                bool isAssigned = await _coachRepo.AssignCaptain(id);
+
+                if (isAssigned)
+                {
+                    var captain = await _userRepo.GetUserById(id);
+
+                    if (captain != null)
+                    {
+                        Team.Players.Add(captain);
+                        return new ResponseDTO
+                        {
+                            Status = 200,
+                            Message = $"Player with id {id} assigned as captain"
+                        };
+                    }
+                    else
+                    {
+                        return new ResponseDTO
+                        {
+                            Status = 404,
+                            Message = $"Player with id {id} not found"
+                        };
+                    }
+                }
+                else
+                {
+                    return new ResponseDTO
+                    {
+                        Status = 400,
+                        Message = "Failed to assign captain"
+                    };
+                }
+            }
+            else
             {
                 return new ResponseDTO
                 {
-                    Status = 200,
-                    Message = $"id {id} assigned as captain"
+                    Status = 400,
+                    Message = "Captain already exists"
                 };
             }
-
-            return new ResponseDTO
-            {
-                Status = 400,
-                Message = "Captain already exists"
-            };
         }
+
 
         public async Task<List<User>> ViewTeam()
         {
