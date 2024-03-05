@@ -40,9 +40,10 @@ namespace RepoPatternSports.Controllers
 
         [HttpGet]
         [Route("ViewPlayers")]
-        public IActionResult GetTeam()
+        public async Task<IActionResult> GetTeam()
         {
-            return Ok(Team.Players);
+            var res = await _coachService.ViewTeam();
+            return Ok(res);
         }
     }
 }

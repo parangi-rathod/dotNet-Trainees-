@@ -11,5 +11,7 @@ namespace RepoPatternSports.Repository.Interface
     {
         Task<bool> AssignCaptain(int id);
         Task<bool> CaptainExists(int id);
+        Task UpdateUserIsMem(int id);
+        Task<List<User>> ViewTeam();
     }
 }

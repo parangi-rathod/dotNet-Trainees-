@@ -35,7 +35,16 @@ namespace RepoPatternSports.Repository.Repository
             await _context.SaveChangesAsync();
             return true;
         }
+        public async Task UpdateUserIsMem(int id)
+        {
+            var user = await _context.UserModel.FirstOrDefaultAsync(u => u.UserId == id);
 
+            if (user != null)
+            {
+                user.isMember = true;
+                await _context.SaveChangesAsync();
+            }
+        }
         public async Task<bool> CaptainExists(int id)
         {
             var res = await _context.UserModel.FirstOrDefaultAsync(u => u.UserId.Equals(id) && u.role.Equals(Role.Captain));
@@ -44,6 +53,12 @@ namespace RepoPatternSports.Repository.Repository
                 return true; //yes, captain already exists
             }
             return false;
+        }
+
+        public async Task<List<User>> ViewTeam()
+        {
+            var usersWithMembership = await _context.UserModel.Where(u => u.isMember == true).ToListAsync();
+            return usersWithMembership;
         }
         #endregion
     }

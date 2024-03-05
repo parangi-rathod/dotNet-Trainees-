@@ -36,11 +36,10 @@ namespace RepoPatternSports.Service.Service
                 var user = await _capRepo.CheckIsMem(id);
 
                 // Check if the user exists, is a member, and is part of Team.Players
-                if (user != null /*&& Team.Players.Contains(user)*/)
+                if (user != null && user.isMember==true)
                 {
                     if (!Team.FinalTeam.Contains(user))
                     {
-                        await _capRepo.UpdateUserIsMem(id);
                         Team.FinalTeam.Add(user);
                         return new ResponseDTO
                         {
@@ -75,14 +74,8 @@ namespace RepoPatternSports.Service.Service
 
 
         public async Task<List<User>> ViewTeam()
-        {
-            List<User> finalTeamMembers = Team.FinalTeam.ToList();
-
-            List<User> databaseTeamMembers = await _capRepo.GetIsMemPlayers();
-
-            List<User> allTeamMembers = finalTeamMembers.Concat(databaseTeamMembers).ToList();
-
-            return allTeamMembers;
+        { 
+            return Team.FinalTeam;
         }
     }
 }

@@ -27,7 +27,7 @@ namespace RepoPatternSports.Service.Service
         #endregion
 
         #region methods
-        public async Task<List<User>> AddPlayerToTeam(int id)
+        public async Task<ResponseDTO> AddPlayerToTeam(int id)
         {
             var user = await _userRepo.GetUserById(id);
 
@@ -35,19 +35,29 @@ namespace RepoPatternSports.Service.Service
             {
                 if (!Team.Players.Contains(user))
                 {
+                    await _coachRepo.UpdateUserIsMem(id);
                     Team.Players.Add(user);
-                    return Team.Players;
+                    return new ResponseDTO
+                    {
+                        Status = 200,
+                        Message = "Player added into team!"
+                    };
                 }
-                else
+                return new ResponseDTO
                 {
-                    return Team.Players;
-                }
+                    Status = 400,
+                    Message = $"Team already contains user with {id}"
+                };
             }
 
-            return null;
+            return new ResponseDTO
+            {
+                Status = 400,
+                Message = $"Team can only contains upto 16 players OR Team already contains user with {id}"
+            };
+
         }
-
-
+                
         public async Task<ResponseDTO> AssignCaptain(int id)
         {
            bool res1 = await _coachRepo.AssignCaptain(id);
@@ -67,6 +77,17 @@ namespace RepoPatternSports.Service.Service
                 Message = "Captain already exists"
             };
         }
+
+        public async Task<List<User>> ViewTeam()
+        {
+            List<User> coachTeam = await _coachRepo.ViewTeam();
+            List<User> teamPlayers = Team.Players;
+
+            List<User> combinedList = coachTeam.Concat(teamPlayers).ToList();
+
+            return combinedList;
+        }
+
         #endregion
     }
 }

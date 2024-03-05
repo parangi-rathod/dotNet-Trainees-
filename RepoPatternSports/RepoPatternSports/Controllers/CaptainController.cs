@@ -27,7 +27,7 @@ namespace RepoPatternSports.Controllers
         }
 
         [HttpGet]
-        [Route("ViewPlayers")]
+        [Route("ViewFinalTeamPlayers")]
         public async Task<ActionResult> GetTeam()
         {
             var res = await _captainService.ViewTeam();
