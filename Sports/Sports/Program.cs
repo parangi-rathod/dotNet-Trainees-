@@ -28,7 +28,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
 
 });
 
-builder.Services.AddDbContext<AppDbContext>(opt => opt.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=SportsDB;Trusted_Connection=True"));
+builder.Services.AddDbContext<AppDbContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("MyCon")), ServiceLifetime.Scoped);
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -76,6 +76,8 @@ builder.Services.AddTransient<ICoachService, CoachService>();
 builder.Services.AddTransient<ICaptainService, CaptainService>();
 builder.Services.AddTransient<IPlayerService, PlayerService>();
 builder.Services.AddTransient<IEmailService, EmailService>();
+builder.Services.AddTransient<IConvertHashService, CovertHashService>();
+
 
 var app = builder.Build();
 

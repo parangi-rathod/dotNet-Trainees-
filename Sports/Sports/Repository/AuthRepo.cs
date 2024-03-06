@@ -17,13 +17,15 @@ namespace Sports.Repository
         private readonly AppDbContext _context;
         private readonly IConfiguration _config;
         private readonly IUserRepo _userRepo;
+        private readonly IConvertHashService _convertHashService;
         #endregion
 
         #region ctor
-        public AuthRepo(AppDbContext context, IConfiguration config)
+        public AuthRepo(AppDbContext context, IConfiguration config, IConvertHashService convertHashService)
         {
             _context = context;
             _config = config;
+            _convertHashService = convertHashService;
         }
         #endregion
 
@@ -36,8 +38,8 @@ namespace Sports.Repository
             {
                 var user = await _context.UserModel.FirstOrDefaultAsync(u => u.Email == userEmail);
 
-                byte[] inputPasswordHash = CreatePasswordHash(loggingUser.Password);
-                if (Convert.ToBase64String(inputPasswordHash) == Convert.ToBase64String(user.Password))
+                string inputPasswordHash = _convertHashService.CreatePasswordHash(loggingUser.Password);
+                if (inputPasswordHash == user.Password)
                 {
                     string userRoleString = user.role.ToString();
                     return await GenerateJwtToken(userRoleString);
@@ -62,8 +64,8 @@ namespace Sports.Repository
 
         public async Task<bool> Register(RegisterModel registerModel)
         {
-            byte[] passwordHash;
-            passwordHash= CreatePasswordHash(registerModel.Password);
+            string passwordHash;
+            passwordHash= _convertHashService.CreatePasswordHash(registerModel.Password);
 
             var user = new User
             {
@@ -109,7 +111,7 @@ namespace Sports.Repository
             var user = await _context.UserModel.FirstOrDefaultAsync(u => u.Email == resetPasswordDTO.Email);
             if(user != null)
             {
-                byte[] hashedPass = CreatePasswordHash(resetPasswordDTO.NewPassword);  
+                string hashedPass = _convertHashService.CreatePasswordHash(resetPasswordDTO.NewPassword);  
                 user.Password= hashedPass;
                 await _context.SaveChangesAsync();
                 return true;

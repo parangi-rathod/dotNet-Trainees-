@@ -12,8 +12,8 @@ using Sports.Model;
 namespace Sports.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240302134717_init")]
-    partial class init
+    [Migration("20240306064708_check")]
+    partial class check
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -54,13 +54,13 @@ namespace Sports.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<byte[]>("Password")
+                    b.Property<string>("Password")
                         .IsRequired()
-                        .HasColumnType("varbinary(max)")
+                        .HasColumnType("nvarchar(max)")
                         .HasColumnName("Password");
 
-                    b.Property<string>("TotalMatchesPlayed")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("TotalMatchesPlayed")
+                        .HasColumnType("int");
 
                     b.Property<int?>("Weight")
                         .HasColumnType("int");
@@ -74,6 +74,21 @@ namespace Sports.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("UserModel");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = 1,
+                            ContactNumber = "9586842849",
+                            DateOfBirth = new DateTime(2003, 8, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "zenishasavaliya96@gmail.com",
+                            Firstname = "zenisha",
+                            Lastname = "savaliya",
+                            Password = "a2b33e9987e8c254361bcafced58a245ea7ba919eaf093119694a68e01bd59fe",
+                            TotalMatchesPlayed = 0,
+                            isMember = false,
+                            role = 1
+                        });
                 });
 #pragma warning restore 612, 618
         }

@@ -26,9 +26,9 @@ namespace Sports.Model
         //public string Password{ get; set; }
         [JsonIgnore]
         [Column("Password")]
-        public byte[] Password { get; set; }
+        public string Password { get; set; }
 
-        public string? TotalMatchesPlayed { get; set; }
+        public int? TotalMatchesPlayed { get; set; }
         [Required]
         [Phone]
         public string ContactNumber { get; set; }
