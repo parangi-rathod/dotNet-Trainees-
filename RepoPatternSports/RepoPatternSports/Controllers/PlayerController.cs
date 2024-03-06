@@ -7,9 +7,7 @@ using RepoPatternSports.Service.Service;
 namespace RepoPatternSports.Controllers
 {
     [Authorize(Roles ="Player")]
-    [Route("api/[controller]")]
-    [ApiController]
-    public class PlayerController : ControllerBase
+    public class PlayerController : BaseController
     {
         #region prop
         private readonly IPlayerService _playerService;

@@ -2,11 +2,6 @@
 using Microsoft.Extensions.Configuration;
 using RepoPatternSports.Repository.Interface;
 using RepoPatternSports.Repository.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RepoPatternSports.Repository.Repository
 {

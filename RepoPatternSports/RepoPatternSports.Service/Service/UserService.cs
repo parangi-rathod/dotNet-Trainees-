@@ -1,11 +1,5 @@
 ﻿using RepoPatternSports.Repository.Interface;
-using RepoPatternSports.Repository.Models;
 using RepoPatternSports.Service.DTOs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RepoPatternSports.Service.Service
 {
@@ -21,6 +15,8 @@ namespace RepoPatternSports.Service.Service
             _userRepo= userRepo;
         }
         #endregion
+
+        #region methods
         public async Task<ResponseDTO> GetUserById(int id)
         {
             var user = await _userRepo.GetUserById(id);
@@ -39,6 +35,6 @@ namespace RepoPatternSports.Service.Service
             };
 
         }
-       
+        #endregion
     }
 }

@@ -1,11 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RepoPatternSports.Repository.Interface;
 using RepoPatternSports.Repository.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RepoPatternSports.Repository.Repository
 {
@@ -24,13 +19,14 @@ namespace RepoPatternSports.Repository.Repository
 
         #endregion
 
+        #region methods
         public async Task<User> GetUserById(int id)
         {
             var user = await _context.UserModel.FirstOrDefaultAsync(u => u.UserId.Equals(id));
             return user;
         }
 
-        public async Task<User> GetUserByEmailAndPass(string email, byte[] password)
+        public async Task<User> GetUserByEmailAndPass(string email, string password)
         {
             var user = await _context.UserModel.FirstOrDefaultAsync(u => u.Email.Equals(email) && u.Password.Equals(password));
             return user;
@@ -51,18 +47,14 @@ namespace RepoPatternSports.Repository.Repository
         {
             _context.Update(user);
             await _context.SaveChangesAsync();
-
-            // Return the updated user object
             return user;
         }
         public async Task<int> GetTeamMembersCount()
         {
-            // Query the database to count the number of users who are team members
             int count = await _context.UserModel.CountAsync(u => u.isMember);
-
             return count;
         }
-
+        #endregion
 
     }
 }

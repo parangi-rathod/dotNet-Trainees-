@@ -4,9 +4,7 @@ using RepoPatternSports.Repository.DTOs;
 
 namespace RepoPatternSports.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class AuthController : ControllerBase
+    public class AuthController : BaseController
     {
         #region props
 

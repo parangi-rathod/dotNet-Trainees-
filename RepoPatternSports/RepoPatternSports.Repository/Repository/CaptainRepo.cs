@@ -1,22 +1,23 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RepoPatternSports.Repository.Interface;
 using RepoPatternSports.Repository.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RepoPatternSports.Repository.Repository
 {
     public class CaptainRepo : ICaptainRepo
     {
+        #region props
         private readonly AppDbContext _context;
+        #endregion
+
+        #region ctor
         public CaptainRepo(AppDbContext context)
         {
             _context = context;
         }
+        #endregion
 
+        #region methods
         public async Task<User> CheckIsMem(int id)
         {
             var user = await _context.UserModel.FirstOrDefaultAsync(u => u.UserId.Equals(id));
@@ -55,5 +56,6 @@ namespace RepoPatternSports.Repository.Repository
                 await _context.SaveChangesAsync();
             }
         }
+        #endregion
     }
 }

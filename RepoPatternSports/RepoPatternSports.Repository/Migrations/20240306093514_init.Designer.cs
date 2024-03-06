@@ -12,7 +12,7 @@ using RepoPatternSports.Repository;
 namespace RepoPatternSports.Repository.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240303175916_init")]
+    [Migration("20240306093514_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -54,13 +54,13 @@ namespace RepoPatternSports.Repository.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<byte[]>("Password")
+                    b.Property<string>("Password")
                         .IsRequired()
-                        .HasColumnType("varbinary(max)")
+                        .HasColumnType("nvarchar(max)")
                         .HasColumnName("Password");
 
-                    b.Property<string>("TotalMatchesPlayed")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("TotalMatchesPlayed")
+                        .HasColumnType("int");
 
                     b.Property<int?>("Weight")
                         .HasColumnType("int");

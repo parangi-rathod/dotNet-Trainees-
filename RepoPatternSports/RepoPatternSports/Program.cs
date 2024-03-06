@@ -28,9 +28,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
 
 });
 
-builder.Services.AddDbContext<AppDbContext>(opt => opt.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=TeamTaskDB;Trusted_Connection=True"));
-
-
+builder.Services.AddDbContext<AppDbContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("MyCon")), ServiceLifetime.Scoped);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -80,6 +78,7 @@ builder.Services.AddScoped<IPlayerRepo, PlayerRepo>();
 builder.Services.AddScoped<IPlayerService, PlayerService>();
 
 builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddScoped<IPasswordHash, PasswordHash>();
 
 
 

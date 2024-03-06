@@ -7,17 +7,20 @@ using RepoPatternSports.Service.Interface;
 namespace RepoPatternSports.Controllers
 {
     [Authorize(Roles ="Captain")]
-    [Route("api/[controller]")]
-    [ApiController]
-    public class CaptainController : ControllerBase
+    public class CaptainController : BaseController
     {
+        #region props
         private readonly ICaptainService _captainService;
+        #endregion
 
+        #region ctor
         public CaptainController(ICaptainService captainService)
         {
             _captainService = captainService;
         }
+        #endregion
 
+        #region apis
         [HttpGet]
         [Route("FinalTeam")]
         public async Task<ActionResult> FormFinalTeam(int id)
@@ -33,5 +36,6 @@ namespace RepoPatternSports.Controllers
             var res = await _captainService.ViewTeam();
             return Ok(res);
         }
+        #endregion
     }
 }

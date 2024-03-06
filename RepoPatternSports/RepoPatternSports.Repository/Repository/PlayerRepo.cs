@@ -1,11 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RepoPatternSports.Repository.Interface;
 using RepoPatternSports.Repository.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RepoPatternSports.Repository.Repository
 {
@@ -21,6 +16,8 @@ namespace RepoPatternSports.Repository.Repository
             _context = context;
         }
         #endregion
+
+        #region methods
         public async Task<User> GetCaptain()
         {
             var res = await _context.UserModel.FirstOrDefaultAsync(u => u.role == Role.Captain);
@@ -32,5 +29,6 @@ namespace RepoPatternSports.Repository.Repository
             var res = await _context.UserModel.FirstOrDefaultAsync(u => u.role == Role.Coach);
             return res;
         }
+        #endregion
     }
 }

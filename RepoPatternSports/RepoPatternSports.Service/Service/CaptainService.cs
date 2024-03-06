@@ -2,11 +2,6 @@
 using RepoPatternSports.Repository.Models;
 using RepoPatternSports.Service.DTOs;
 using RepoPatternSports.Service.Interface;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RepoPatternSports.Service.Service
 {
@@ -24,6 +19,8 @@ namespace RepoPatternSports.Service.Service
             _capRepo = capRepo;
         }
         #endregion
+
+        #region methods
         public async Task<ResponseDTO> FormFinalTeam(int id)
         {
             int finalTeamCount = Team.FinalTeam.Count;
@@ -35,7 +32,6 @@ namespace RepoPatternSports.Service.Service
             {
                 var user = await _capRepo.CheckIsMem(id);
 
-                // Check if the user exists, is a member, and is part of Team.Players
                 if (user != null && user.isMember==true)
                 {
                     if (!Team.FinalTeam.Contains(user))
@@ -71,11 +67,10 @@ namespace RepoPatternSports.Service.Service
                 Message = "Team can only contain 11 players"
             };
         }
-
-
         public async Task<List<User>> ViewTeam()
         { 
             return Team.FinalTeam;
         }
+        #endregion
     }
 }

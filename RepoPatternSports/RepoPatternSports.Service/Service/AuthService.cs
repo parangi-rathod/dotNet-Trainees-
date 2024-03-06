@@ -1,16 +1,12 @@
-﻿using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 using RepoPatternSports.Repository.DTOs;
 using RepoPatternSports.Repository.Interface;
 using RepoPatternSports.Repository.Models;
 using RepoPatternSports.Service.DTOs;
 using RepoPatternSports.Service.Interface;
-using Microsoft.Extensions.Configuration;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using System.Security.Cryptography;
-using System.Text;
-using System.Security.Cryptography.X509Certificates;
-using MimeKit;
 
 namespace RepoPatternSports.Service.Service
 {
@@ -21,15 +17,17 @@ namespace RepoPatternSports.Service.Service
         private readonly IConfiguration _config;
         private readonly IEmailService _emailService;
         private readonly IUserRepo _userRepo;
+        private readonly IPasswordHash _passwordHash;
         #endregion
 
         #region ctor
-        public AuthService(IAuthRepo authRepo, IConfiguration configuration, IEmailService emailService, IUserRepo userRepo)
+        public AuthService(IAuthRepo authRepo, IConfiguration configuration, IEmailService emailService, IUserRepo userRepo, IPasswordHash passwordHash)
         {
             _authRepo = authRepo;
             _config = configuration;
             _emailService = emailService;
             _userRepo = userRepo;
+            _passwordHash = passwordHash;
         }
 
         #endregion
@@ -37,8 +35,8 @@ namespace RepoPatternSports.Service.Service
         #region methods
         public async Task<ResponseDTO> Register(RegisterDTO registerDTO)
         {
-            byte[] passwordHash;
-            passwordHash = CreatePasswordHash(registerDTO.Password);
+            string passwordHash;
+            passwordHash = _passwordHash.CreatePasswordHash(registerDTO.Password);
             var user = new User
             {
                 Firstname = registerDTO.Firstname,
@@ -100,7 +98,7 @@ namespace RepoPatternSports.Service.Service
 
         public async Task<ResponseDTO> Login(LoginDTO loginDTO)
         {
-            byte[] PassHash = CreatePasswordHash(loginDTO.Password);
+            string PassHash = _passwordHash.CreatePasswordHash(loginDTO.Password);
             var user = await _authRepo.Login(loginDTO.Email, PassHash); // Assuming this is your login method returning a user.
             if (user != null)
             {
@@ -125,39 +123,11 @@ namespace RepoPatternSports.Service.Service
             }
         }
 
-        //public async Task<ResponseDTO> ResetPassword(ResetPasswordDTO resetPasswordDTO)
-        //{
-        //    var user = await _userRepo.GetUserByEmail(resetPasswordDTO.Email);
-        //    if (user != null)
-        //    {
-        //        byte[] hashedPass = CreatePasswordHash(resetPasswordDTO.NewPassword);
-        //        user.Password = hashedPass;
-        //        await _userRepo.UpdateUser(user);
-        //        var emailObj = new EmailDTO
-        //        {
-        //            Email = user.Email,
-        //            Subject = "Password reset",
-        //            Body = "Your Password changed successfully!"
-        //        };
-        //        _emailService.SendEmail(emailObj);
-        //        return new ResponseDTO
-        //        {
-        //            Status = 200,
-        //            Message = "Password modified!"
-        //        };
-        //    }
-        //    return new ResponseDTO
-        //    {
-        //        Status= 400,
-        //        Message = "Password Can't modified"
-        //    };
-        //}
-
         public async Task<ResponseDTO> ResetPassword(ResetPasswordDTO resetPasswordDTO)
         {
             try
             {
-                byte[] hashedform = CreatePasswordHash(resetPasswordDTO.OldPassword);
+                string hashedform = _passwordHash.CreatePasswordHash(resetPasswordDTO.OldPassword);
                 var user = await _userRepo.GetUserByEmailAndPass(resetPasswordDTO.Email, hashedform);
                 if (user == null)
                 {
@@ -167,7 +137,7 @@ namespace RepoPatternSports.Service.Service
                         Message = "User not found : try to add correct details"
                     };
                 }
-                byte[] HashedFormOfNewPassword = CreatePasswordHash(resetPasswordDTO.NewPassword);
+                string HashedFormOfNewPassword = _passwordHash.CreatePasswordHash(resetPasswordDTO.NewPassword);
                 user.Password = HashedFormOfNewPassword;
                 var updateUser = await _userRepo.UpdateUser(user);
                 if (updateUser != null)
@@ -210,14 +180,6 @@ namespace RepoPatternSports.Service.Service
         #endregion
 
         #region miscellaneous methods
-
-        private byte[] CreatePasswordHash(string password)
-        {
-            using (var sha512 = SHA512.Create())
-            {
-                return sha512.ComputeHash(Encoding.UTF8.GetBytes(password));
-            }
-        }
 
         public async Task<string> GenerateJwtToken(string userRole)
         {

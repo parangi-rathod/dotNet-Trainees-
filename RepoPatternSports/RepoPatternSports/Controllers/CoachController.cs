@@ -6,18 +6,21 @@ using RepoPatternSports.Service.Interface;
 
 namespace RepoPatternSports.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-        [Authorize(Roles ="Coach")]
-    public class CoachController : ControllerBase
+    [Authorize(Roles ="Coach")]
+    public class CoachController : BaseController
     {
+        #region props
         private readonly ICoachService _coachService;
+        #endregion
 
+        #region ctor
         public CoachController(ICoachService coachService)
         {
             _coachService = coachService;
         }
+        #endregion
 
+        #region apis
         [HttpGet]
         [Route("AddPlayers")]
         public async Task<ActionResult> AddPlayer(int id)
@@ -45,5 +48,6 @@ namespace RepoPatternSports.Controllers
             var res = await _coachService.ViewTeam();
             return Ok(res);
         }
+        #endregion
     }
 }

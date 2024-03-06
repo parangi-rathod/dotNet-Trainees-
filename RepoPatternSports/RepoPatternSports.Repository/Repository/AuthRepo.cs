@@ -28,7 +28,7 @@ namespace RepoPatternSports.Repository.Repository
             }
             return false;
         }
-        public async Task<User> Login(string email, byte[] password)
+        public async Task<User> Login(string email, string password)
         {
             string checkUserExists = await UserExists(email);
             if(checkUserExists == null)

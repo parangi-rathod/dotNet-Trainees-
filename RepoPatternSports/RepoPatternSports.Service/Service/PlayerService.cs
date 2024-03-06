@@ -1,11 +1,5 @@
 ﻿using RepoPatternSports.Repository.Interface;
-using RepoPatternSports.Repository.Models;
 using RepoPatternSports.Service.Interface;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RepoPatternSports.Service.Service
 {
@@ -21,6 +15,9 @@ namespace RepoPatternSports.Service.Service
             _playerRepo = playerRepo;
         }
         #endregion
+
+
+        #region methods
         public async Task<object> GetCaptain()
         {
             var user1 = await _playerRepo.GetCaptain();
@@ -49,7 +46,7 @@ namespace RepoPatternSports.Service.Service
 
             return user;
         }
-
+        #endregion
     }
 }
 

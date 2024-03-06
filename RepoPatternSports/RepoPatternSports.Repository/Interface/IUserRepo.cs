@@ -13,7 +13,7 @@ namespace RepoPatternSports.Repository.Interface
         Task<bool> CheckCaptain(User user);
         Task<User> UpdateUser(User user);
         Task<User> GetUserByEmail(string email);
-        Task<User> GetUserByEmailAndPass(string email, byte[] password);
+        Task<User> GetUserByEmailAndPass(string email, string password);
         Task<int> GetTeamMembersCount();
     }
 }

@@ -2,11 +2,6 @@
 using RepoPatternSports.Repository.Models;
 using RepoPatternSports.Service.DTOs;
 using RepoPatternSports.Service.Interface;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RepoPatternSports.Service.Service
 {
