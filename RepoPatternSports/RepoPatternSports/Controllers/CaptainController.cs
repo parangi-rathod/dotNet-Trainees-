@@ -23,7 +23,7 @@ namespace RepoPatternSports.Controllers
         #region apis
         [HttpGet]
         [Route("FinalTeam")]
-        public async Task<ActionResult> FormFinalTeam(int id)
+        public async Task<IActionResult> FormFinalTeam(int id)
         {
             var res = await _captainService.FormFinalTeam(id);
             return Ok(res);
@@ -31,7 +31,7 @@ namespace RepoPatternSports.Controllers
 
         [HttpGet]
         [Route("ViewFinalTeamPlayers")]
-        public async Task<ActionResult> GetTeam()
+        public async Task<IActionResult> GetTeam()
         {
             var res = await _captainService.ViewTeam();
             return Ok(res);

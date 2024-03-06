@@ -23,7 +23,7 @@ namespace RepoPatternSports.Controllers
         #region apis
         [HttpGet]
         [Route("AddPlayers")]
-        public async Task<ActionResult> AddPlayer(int id)
+        public async Task<IActionResult> AddPlayer(int id)
         {
             var res = await _coachService.AddPlayerToTeam(id);
             if (res != null)
