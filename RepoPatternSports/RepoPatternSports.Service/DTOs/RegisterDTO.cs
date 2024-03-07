@@ -12,9 +12,8 @@ namespace RepoPatternSports.Repository.DTOs
         [Required(ErrorMessage = "Last name is required")]
         public string Lastname { get; set; }
 
-        [Required(ErrorMessage = "Password is required")]
         [DataType(DataType.Password)]
-        public string Password { get; set; }
+        public string Password { get; } = "team1234";
 
         [Required(ErrorMessage = "Contact number is required")]
         [RegularExpression(@"^\d{10}$", ErrorMessage = "Contact number must be a 10-digit number")]
@@ -30,6 +29,7 @@ namespace RepoPatternSports.Repository.DTOs
         public DateTime DateOfBirth { get; set; }
 
         [Required(ErrorMessage = "Role is required")]
+        [Range(1, 3, ErrorMessage = "User can either register as Coach or as Player")]
         public Role role { get; set; }
     }
 }

@@ -73,11 +73,9 @@ namespace RepoPatternSports.Service.Service
             };
         }
 
-
-
         public async Task<ResponseDTO> AssignCaptain(int id)
         {
-            bool captainExists = await _coachRepo.CaptainExists(id);
+            bool captainExists = await _userRepo.CheckCaptain();
 
             if (!captainExists)
             {
@@ -128,11 +126,11 @@ namespace RepoPatternSports.Service.Service
         public async Task<List<User>> ViewTeam()
         {
             List<User> coachTeam = await _coachRepo.ViewTeam();
-            List<User> teamPlayers = Team.Players;
+            //List<User> teamPlayers = Team.Players;
 
-            List<User> combinedList = coachTeam.Concat(teamPlayers).ToList();
+            //List<User> combinedList = coachTeam.Concat(teamPlayers).ToList();
 
-            return combinedList;
+            return coachTeam;
         }
 
         #endregion

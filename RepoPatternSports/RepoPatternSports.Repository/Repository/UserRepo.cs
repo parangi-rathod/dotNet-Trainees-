@@ -37,7 +37,7 @@ namespace RepoPatternSports.Repository.Repository
             return await _context.UserModel.FirstOrDefaultAsync(u => u.Email == email);
         }
 
-        public async Task<bool> CheckCaptain(User user)
+        public async Task<bool> CheckCaptain()
         {
             bool isCaptainRegistered = await _context.UserModel.AnyAsync(u => u.role.Equals(Role.Captain));
             return isCaptainRegistered;
@@ -53,6 +53,18 @@ namespace RepoPatternSports.Repository.Repository
         {
             int count = await _context.UserModel.CountAsync(u => u.isMember);
             return count;
+        }
+
+        public async Task<bool> CheckCoach()
+        {
+            bool isCaptainRegistered = await _context.UserModel.AnyAsync(u => u.role.Equals(Role.Coach));
+            return isCaptainRegistered;
+        }
+
+        public async Task<bool> uniqueEmail(string email)
+        {
+            bool isUnique = await _context.UserModel.AnyAsync(u => u.Email.Equals(email));
+            return isUnique;
         }
         #endregion
 

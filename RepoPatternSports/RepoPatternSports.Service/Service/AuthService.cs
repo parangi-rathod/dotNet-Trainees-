@@ -37,6 +37,9 @@ namespace RepoPatternSports.Service.Service
         {
             string passwordHash;
             passwordHash = _passwordHash.CreatePasswordHash(registerDTO.Password);
+
+            //var checkCoach = await _userRepo.CheckCoach();
+
             var user = new User
             {
                 Firstname = registerDTO.Firstname,
@@ -49,7 +52,15 @@ namespace RepoPatternSports.Service.Service
             };
             try
             {
-                if (user.role != Role.Coach && user.role != Role.Captain)
+                if (await _userRepo.uniqueEmail(registerDTO.Email))
+                {
+                    return new ResponseDTO
+                    {
+                        Status = 400,
+                        Message = $"User with email address {registerDTO.Email} already exists in the system!"
+                    };
+                }
+                if (((user.role == Role.Coach && (await _userRepo.CheckCoach()) == false) && user.role != Role.Captain) || user.role == Role.Player)
                 {
                     var res = _authRepo.Register(user);
                     if (res != null)
@@ -85,6 +96,7 @@ namespace RepoPatternSports.Service.Service
                     };
                 }
             }
+
             catch (Exception ex)
             {
                 return new ResponseDTO
