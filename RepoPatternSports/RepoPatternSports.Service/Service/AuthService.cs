@@ -43,13 +43,15 @@ namespace RepoPatternSports.Service.Service
 
             var validationResponse = await _validationService.ValidateUser(registerDTO);
 
-            // Check the validation response
-            return new ResponseDTO
+            if (validationResponse.Status != 200)
             {
-                Status = validationResponse.Status,
-                Message = "Validation failed.",
-                Error = string.Join("; ", validationResponse.Errors)
-            };
+                return new ResponseDTO
+                {
+                    Status = validationResponse.Status,
+                    Message = "Validation failed.",
+                    Error = string.Join("; ", validationResponse.Errors)
+                };
+            }
 
             //var checkCoach = await _userRepo.CheckCoach();
 
