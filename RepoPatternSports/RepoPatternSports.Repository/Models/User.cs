@@ -25,9 +25,7 @@ namespace RepoPatternSports.Repository.Models
         public string Firstname { get; set; }
         [Required]
         public string Lastname { get; set; }
-        //[Required]
-        //[MinLength(8), MaxLength(14)]
-        //public string Password{ get; set; }
+       
         [JsonIgnore]
         [Column("Password")]
         public string Password { get; set; }

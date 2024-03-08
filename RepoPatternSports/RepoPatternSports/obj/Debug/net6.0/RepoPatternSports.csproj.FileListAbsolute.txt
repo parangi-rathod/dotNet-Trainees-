@@ -5,12 +5,15 @@ E:\Bacancy\RepoPatternSports\RepoPatternSports\bin\Debug\net6.0\RepoPatternSport
 E:\Bacancy\RepoPatternSports\RepoPatternSports\bin\Debug\net6.0\RepoPatternSports.runtimeconfig.json
 E:\Bacancy\RepoPatternSports\RepoPatternSports\bin\Debug\net6.0\RepoPatternSports.dll
 E:\Bacancy\RepoPatternSports\RepoPatternSports\bin\Debug\net6.0\RepoPatternSports.pdb
+E:\Bacancy\RepoPatternSports\RepoPatternSports\bin\Debug\net6.0\AutoMapper.dll
 E:\Bacancy\RepoPatternSports\RepoPatternSports\bin\Debug\net6.0\BouncyCastle.Cryptography.dll
+E:\Bacancy\RepoPatternSports\RepoPatternSports\bin\Debug\net6.0\Humanizer.dll
 E:\Bacancy\RepoPatternSports\RepoPatternSports\bin\Debug\net6.0\MailKit.dll
 E:\Bacancy\RepoPatternSports\RepoPatternSports\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 E:\Bacancy\RepoPatternSports\RepoPatternSports\bin\Debug\net6.0\Microsoft.Data.SqlClient.dll
 E:\Bacancy\RepoPatternSports\RepoPatternSports\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.dll
 E:\Bacancy\RepoPatternSports\RepoPatternSports\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+E:\Bacancy\RepoPatternSports\RepoPatternSports\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Design.dll
 E:\Bacancy\RepoPatternSports\RepoPatternSports\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Relational.dll
 E:\Bacancy\RepoPatternSports\RepoPatternSports\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.SqlServer.dll
 E:\Bacancy\RepoPatternSports\RepoPatternSports\bin\Debug\net6.0\Microsoft.Identity.Client.dll
@@ -74,6 +77,3 @@ E:\Bacancy\RepoPatternSports\RepoPatternSports\obj\Debug\net6.0\refint\RepoPatte
 E:\Bacancy\RepoPatternSports\RepoPatternSports\obj\Debug\net6.0\RepoPatternSports.pdb
 E:\Bacancy\RepoPatternSports\RepoPatternSports\obj\Debug\net6.0\RepoPatternSports.genruntimeconfig.cache
 E:\Bacancy\RepoPatternSports\RepoPatternSports\obj\Debug\net6.0\ref\RepoPatternSports.dll
-E:\Bacancy\RepoPatternSports\RepoPatternSports\bin\Debug\net6.0\Humanizer.dll
-E:\Bacancy\RepoPatternSports\RepoPatternSports\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Design.dll
-E:\Bacancy\RepoPatternSports\RepoPatternSports\bin\Debug\net6.0\AutoMapper.dll

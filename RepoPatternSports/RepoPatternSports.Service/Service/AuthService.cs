@@ -18,16 +18,19 @@ namespace RepoPatternSports.Service.Service
         private readonly IEmailService _emailService;
         private readonly IUserRepo _userRepo;
         private readonly IPasswordHash _passwordHash;
+        private readonly IValidationService _validationService;
+
         #endregion
 
         #region ctor
-        public AuthService(IAuthRepo authRepo, IConfiguration configuration, IEmailService emailService, IUserRepo userRepo, IPasswordHash passwordHash)
+        public AuthService(IAuthRepo authRepo, IConfiguration configuration, IEmailService emailService, IUserRepo userRepo, IPasswordHash passwordHash, IValidationService validationService)
         {
             _authRepo = authRepo;
             _config = configuration;
             _emailService = emailService;
             _userRepo = userRepo;
             _passwordHash = passwordHash;
+            _validationService = validationService;
         }
 
         #endregion
@@ -35,8 +38,18 @@ namespace RepoPatternSports.Service.Service
         #region methods
         public async Task<ResponseDTO> Register(RegisterDTO registerDTO)
         {
-            string passwordHash;
-            passwordHash = _passwordHash.CreatePasswordHash(registerDTO.Password);
+            string defaultPass = "team1234";
+            string passwordHash = _passwordHash.CreatePasswordHash(defaultPass);
+
+            var validationResponse = await _validationService.ValidateUser(registerDTO);
+
+            // Check the validation response
+            return new ResponseDTO
+            {
+                Status = validationResponse.Status,
+                Message = "Validation failed.",
+                Error = string.Join("; ", validationResponse.Errors)
+            };
 
             //var checkCoach = await _userRepo.CheckCoach();
 
@@ -107,6 +120,7 @@ namespace RepoPatternSports.Service.Service
                 };
             }
         }
+
 
         public async Task<ResponseDTO> Login(LoginDTO loginDTO)
         {

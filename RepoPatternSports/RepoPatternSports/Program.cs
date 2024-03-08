@@ -80,6 +80,7 @@ builder.Services.AddScoped<IPlayerService, PlayerService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<IPasswordHash, PasswordHash>();
 
+builder.Services.AddScoped<IValidationService, ValidationService>();
 
 
 builder.Services.AddTransient<IUserRepo, UserRepo>();

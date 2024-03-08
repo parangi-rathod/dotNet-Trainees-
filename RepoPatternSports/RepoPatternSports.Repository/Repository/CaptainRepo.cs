@@ -26,7 +26,7 @@ namespace RepoPatternSports.Repository.Repository
             {
                 // Update isMem to true if the user exists and is not already a member
                 user.isMember = true;
-                await _context.SaveChangesAsync(); // Save the changes to the database
+                await _context.SaveChangesAsync(); 
             }
 
             return user;
