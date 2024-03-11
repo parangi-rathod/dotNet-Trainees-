@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using RepoPatternSports.Repository.Models;
 using RepoPatternSports.Service.Interface;
 
 namespace RepoPatternSports.Controllers
@@ -21,7 +19,7 @@ namespace RepoPatternSports.Controllers
         #endregion
 
         #region apis
-        [HttpGet]
+        [HttpPut]
         [Route("FinalTeam")]
         public async Task<IActionResult> FormFinalTeam(int id)
         {
@@ -30,7 +28,7 @@ namespace RepoPatternSports.Controllers
         }
 
         [HttpGet]
-        [Route("ViewFinalTeamPlayers")]
+        [Route("Dashboard")]
         public async Task<IActionResult> GetTeam()
         {
             var res = await _captainService.ViewTeam();

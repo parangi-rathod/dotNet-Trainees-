@@ -32,7 +32,13 @@ namespace RepoPatternSports.Service.Service
             mailMessage.Subject = emailDTO.Subject;
 
             mailMessage.IsBodyHtml = true;
-            mailMessage.Body = emailDTO.Body;
+            mailMessage.Body = "<html><body>" +
+                   "<div style='border: 2px solid #000; padding: 20px;'>" + 
+                   "<h1 style='color: blue;'>Welcome to our website!</h1>" +
+                   "<p style='font-size: 16px;'>Dear " + emailDTO.Name + ",</p>" +
+                   "<p style='font-size: 14px;'>" + emailDTO.Body + ".</p>" +
+                   "</div>" +
+                   "</body></html>";
 
             client.Send(mailMessage);
         }

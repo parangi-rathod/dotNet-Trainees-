@@ -22,14 +22,14 @@ namespace RepoPatternSports.Controllers
 
         #region apis
         [HttpGet]
-        [Route("ViewCoach")]
+        [Route("Dashboard/ViewCoach")]
         public async Task<IActionResult> GetCoach()
         {
             var Coach = await _playerService.GetCoach();
             return Ok(Coach);
         }
         [HttpGet]
-        [Route("ViewCaptain")]
+        [Route("Dashboard/ViewCaptain")]
         public async Task<IActionResult> GetCaptain()
         {
             var Captain = await _playerService.GetCaptain();

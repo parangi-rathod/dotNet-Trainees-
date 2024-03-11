@@ -21,7 +21,7 @@ namespace RepoPatternSports.Controllers
         #endregion
 
         #region apis
-        [HttpGet]
+        [HttpPost]
         [Route("AddPlayers")]
         public async Task<IActionResult> AddPlayer(int id)
         {
@@ -42,7 +42,7 @@ namespace RepoPatternSports.Controllers
         }
 
         [HttpGet]
-        [Route("ViewPlayers")]
+        [Route("Dashboard")]
         public async Task<IActionResult> GetTeam()
         {
             var res = await _coachService.ViewTeam();

@@ -78,13 +78,15 @@ namespace RepoPatternSports.Service.Service
                 if (((user.role == Role.Coach && (await _userRepo.CheckCoach()) == false) && user.role != Role.Captain) || user.role == Role.Player)
                 {
                     var res = _authRepo.Register(user);
+                    string Fullname = user.Firstname + " " + user.Lastname;
                     if (res != null)
                     {
                         var emailObj = new EmailDTO
                         {
                             Email = user.Email,
+                            Name = Fullname,                           
                             Subject = "Registration",
-                            Body = "Welcome, you have registered successfully"
+                            Body = "Thank you for registering! You have registered as " + user.role
                         };
                         _emailService.SendEmail(emailObj);
                         return new ResponseDTO
