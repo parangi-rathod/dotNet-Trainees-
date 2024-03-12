@@ -75,6 +75,23 @@ namespace RepoPatternSports.Repository.Migrations
                         .IsUnique();
 
                     b.ToTable("UserModel");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = 1,
+                            ContactNumber = "9726976891",
+                            DateOfBirth = new DateTime(2002, 12, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "parangirathod27@gmail.com",
+                            Firstname = "Parangi",
+                            Height = 0,
+                            Lastname = "Rathod",
+                            Password = "a2b33e9987e8c254361bcafced58a245ea7ba919eaf093119694a68e01bd59fe",
+                            TotalMatchesPlayed = 0,
+                            Weight = 0,
+                            isMember = false,
+                            role = 1
+                        });
                 });
 #pragma warning restore 612, 618
         }

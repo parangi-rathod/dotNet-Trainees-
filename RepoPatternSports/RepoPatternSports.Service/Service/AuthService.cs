@@ -53,7 +53,6 @@ namespace RepoPatternSports.Service.Service
                 };
             }
 
-            //var checkCoach = await _userRepo.CheckCoach();
 
             var user = new User
             {
@@ -77,30 +76,46 @@ namespace RepoPatternSports.Service.Service
                 }
                 if (((user.role == Role.Coach && (await _userRepo.CheckCoach()) == false) && user.role != Role.Captain) || user.role == Role.Player)
                 {
-                    var res = _authRepo.Register(user);
-                    string Fullname = user.Firstname + " " + user.Lastname;
-                    if (res != null)
+                    int rowCount = await _userRepo.CountEntries();
+
+                    if (rowCount < 16)
                     {
-                        var emailObj = new EmailDTO
+                        var res = _authRepo.Register(user);
+                        string Fullname = user.Firstname + " " + user.Lastname;
+
+                        if (res != null)
                         {
-                            Email = user.Email,
-                            Name = Fullname,                           
-                            Subject = "Registration",
-                            Body = "Thank you for registering! You have registered as " + user.role
-                        };
-                        _emailService.SendEmail(emailObj);
-                        return new ResponseDTO
+                            var emailObj = new EmailDTO
+                            {
+                                Email = user.Email,
+                                Name = Fullname,
+                                Subject = "Registration",
+                                Body = "Thank you for registering! You have registered as " + user.role
+                                        + ". \nYou can Login into system using default password."
+                            };
+                            _emailService.SendEmail(emailObj);
+
+                            return new ResponseDTO
+                            {
+                                Status = 200,
+                                Message = "User registered successfully!"
+                            };
+                        }
+                        else
                         {
-                            Status = 200,
-                            Message = "User registered successfully!"
-                        };
+                            return new ResponseDTO
+                            {
+                                Status = 400,
+                                Message = "User not registered!"
+                            };
+                        }
                     }
                     else
                     {
                         return new ResponseDTO
                         {
                             Status = 400,
-                            Message = "User not registered!"
+                            Message = "Maximum user registration limit reached!"
                         };
                     }
                 }
@@ -112,6 +127,7 @@ namespace RepoPatternSports.Service.Service
                         Message = "Invalid role for registration!"
                     };
                 }
+
             }
 
             catch (Exception ex)
@@ -176,7 +192,7 @@ namespace RepoPatternSports.Service.Service
                     {
                         Email = user.Email,
                         Subject = "Password reset",
-                        Body = "Your Password changed successfully!"
+                        Body = "Your password changed successfully, you can login with your new password"
                     };
                     _emailService.SendEmail(emailObj);
                     return new ResponseDTO

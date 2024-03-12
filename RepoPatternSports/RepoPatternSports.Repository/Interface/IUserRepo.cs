@@ -17,5 +17,7 @@ namespace RepoPatternSports.Repository.Interface
         Task<int> GetTeamMembersCount();
         Task<bool> uniqueEmail(string email);
         Task<bool> CheckCoach();
+        Task<bool> CheckRowCountLessThan16();
+        Task<int> CountEntries();
     }
 }

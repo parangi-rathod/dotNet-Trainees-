@@ -66,6 +66,19 @@ namespace RepoPatternSports.Repository.Repository
             bool isUnique = await _context.UserModel.AnyAsync(u => u.Email.Equals(email));
             return isUnique;
         }
+
+        public async Task<int> CountEntries()
+        {
+            int rowCount = await _context.UserModel.CountAsync();
+            return rowCount;
+        }
+
+        public async Task<bool> CheckRowCountLessThan16()
+        {
+            int rowCount = await CountEntries();
+            return rowCount < 16;
+        }
+
         #endregion
 
     }
