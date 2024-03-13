@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RepoPatternSports.Service.Interface;
-using RepoPatternSports.Service.Service;
 
 namespace RepoPatternSports.Controllers
 {
@@ -22,19 +20,25 @@ namespace RepoPatternSports.Controllers
 
         #region apis
         [HttpGet]
-        [Route("Dashboard/ViewCoach")]
-        public async Task<IActionResult> GetCoach()
+        [Route("Dashboard/ViewCoachAndCaptain")]
+        public async Task<IActionResult> GetCoachAndCaptain()
         {
-            var Coach = await _playerService.GetCoach();
-            return Ok(Coach);
+            var coachTask = _playerService.GetCoach();
+            var captainTask = _playerService.GetCaptain();
+
+            var coach = await coachTask;
+            var captain = await captainTask;
+
+            var coachAndCaptain = new
+            {
+                Coach = coach,
+                Captain = captain
+            };
+
+            return Ok(coachAndCaptain);
         }
-        [HttpGet]
-        [Route("Dashboard/ViewCaptain")]
-        public async Task<IActionResult> GetCaptain()
-        {
-            var Captain = await _playerService.GetCaptain();
-            return Ok(Captain);
-        }
+
+
         #endregion
     }
 }

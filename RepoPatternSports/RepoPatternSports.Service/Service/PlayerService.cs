@@ -1,4 +1,5 @@
 ﻿using RepoPatternSports.Repository.Interface;
+using RepoPatternSports.Service.DTOs;
 using RepoPatternSports.Service.Interface;
 
 namespace RepoPatternSports.Service.Service
@@ -16,20 +17,22 @@ namespace RepoPatternSports.Service.Service
         }
         #endregion
 
-
         #region methods
-        public async Task<object> GetCaptain()
+        public async Task<ResponseDTO> GetCaptain()
         {
             var user1 = await _playerRepo.GetCaptain();
-
-            var user = new
+            if (user1 != null)
             {
-                Name = user1.Firstname + user1.Lastname,
-                Email = user1.Email,
-                Contact = user1.ContactNumber
-            };
 
-            return user;
+                var user = new
+                {
+                    Name = user1.Firstname + " " + user1.Lastname,
+                    Email = user1.Email,
+                    Contact = user1.ContactNumber
+                };
+                return new ResponseDTO { Status = 200, Data = user, Message = "" };
+            }
+            return new ResponseDTO { Status = 200, Message = "Captain is not decided yet" };
         }
 
 
@@ -37,12 +40,12 @@ namespace RepoPatternSports.Service.Service
         {
             var user1 = await _playerRepo.GetCoach();
 
-            var user = new
-            {
-                Name = user1.Firstname +" "+ user1.Lastname,
-                Email = user1.Email,
-                Contact = user1.ContactNumber
-            };
+                var user = new
+                {
+                    Name = user1.Firstname +" "+ user1.Lastname,
+                    Email = user1.Email,
+                    Contact = user1.ContactNumber
+                };
 
             return user;
         }

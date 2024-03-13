@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using RepoPatternSports.Service.Interface;
 using RepoPatternSports.Repository.DTOs;
+using RepoPatternSports.Service.Interface;
 
 namespace RepoPatternSports.Controllers
 {

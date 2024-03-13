@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace RepoPatternSports.Repository.DTOs
+﻿namespace RepoPatternSports.Repository.DTOs
 {
     public class ResetPasswordDTO
     {

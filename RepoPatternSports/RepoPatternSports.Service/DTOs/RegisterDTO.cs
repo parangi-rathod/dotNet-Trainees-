@@ -1,5 +1,4 @@
 ﻿using RepoPatternSports.Repository.Models;
-using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace RepoPatternSports.Repository.DTOs
